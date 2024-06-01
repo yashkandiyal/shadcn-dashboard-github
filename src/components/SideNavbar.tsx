@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useEffect, useState } from "react";
 import { Nav } from "./ui/nav";
 import {
@@ -18,20 +18,7 @@ export default function SideNavbar({}: Props) {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const onlyWidth = useWindowWidth();
   const mobileWidth = onlyWidth < 768;
-const [isMounted, setIsMounted] = useState(false);
 
-// useEffect(() => {
-//   setIsMounted(true);
-// }, []);
-
-// // Render a placeholder or skeleton on the server side
-// if (!isMounted) {
-//   return (
-//     <div className="p-4 bg-gray-200">
-//       <p>Loading...</p>
-//     </div>
-//   );
-// }
   function toggleSidebar() {
     setIsCollapsed(!isCollapsed);
   }
