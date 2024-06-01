@@ -18,5 +18,6 @@ model User {
   clerkId   String   @unique
   plan      String   @default("Free")
   createdAt DateTime @default(now()) // Automatically sets the creation timestamp
+  stripeCustomerId String?  @unique@default(uuid())
 
 }
