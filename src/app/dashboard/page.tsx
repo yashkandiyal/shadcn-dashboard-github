@@ -63,14 +63,7 @@ const uesrSalesData: SalesProps[] = [
 ];
 
 export default function Home() {
-  const myFunction = async () => {
-    const response = await clerkClient.users.getUserList();
 
-    console.log(response.data);
-  };
-  useEffect(() => {
-    myFunction();
-  }, []);
   return (
     <div className="flex flex-col gap-5  w-full">
       <PageTitle title="Dashboard" />

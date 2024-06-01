@@ -22,7 +22,8 @@ const columns: ColumnDef<Payment>[] = [
       return (
         <div className="flex gap-2 items-center">
           <Image
-            className="h-10 w-10"
+            width={20}
+            height={20}
             src={`https://api.dicebear.com/7.x/lorelei/svg?seed=${row.getValue(
               "name"
             )}`}

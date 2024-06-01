@@ -14,7 +14,6 @@ datasource db {
 }
 model User {
   id        String   @id @default(cuid()) // Automatically generates a unique ID
-  username  String
   email     String   @unique
   clerkId   String   @unique
   plan      String   @default("Free")

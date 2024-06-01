@@ -1,4 +1,4 @@
-import prisma from "./prisma"
+import prisma from "./prisma";
 
 interface User {
   id: string;
@@ -13,7 +13,6 @@ export async function createUser(user: User) {
     const newUser = await prisma.user.create({
       data: {
         id: user.id,
-        username: user.username,
         email: user.email,
         clerkId: user.clerkId,
         plan: user.plan,

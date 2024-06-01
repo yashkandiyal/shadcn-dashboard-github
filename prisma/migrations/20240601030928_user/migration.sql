@@ -1,7 +1,6 @@
 -- CreateTable
 CREATE TABLE "User" (
     "id" TEXT NOT NULL,
-    "username" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "clerkId" TEXT NOT NULL,
     "plan" TEXT NOT NULL DEFAULT 'Free',
