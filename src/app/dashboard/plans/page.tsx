@@ -1,20 +1,19 @@
 import React from "react";
 import PageTitle from "@/components/PageTitle";
 import PlanCard from "@/components/PlanCard";
-
+import Stripe from "stripe";
 const cardDetails = [
   {
     plan: "Basic Plan",
     pricing: 9.99,
     features: ["Online ordering", "Limited support"],
-    link: process.env.BASIC_PLAN
+    link: process.env.BASIC_PLAN,
   },
   {
     plan: "Premium Plan",
     pricing: 19.99,
     features: ["Online ordering", "24/7 support", "Special events access"],
-    link: process.env.PREMIUM_PLAN
-    
+    link: process.env.PREMIUM_PLAN,
   },
   {
     plan: "Ultimate Plan",
@@ -25,11 +24,13 @@ const cardDetails = [
       "Special events access",
       "Personal chef consultation",
     ],
-    link: process.env.ULTIMATE_PLAN
+    link: process.env.ULTIMATE_PLAN,
   },
 ];
 
 export default async function SettingsPage() {
+
+
   return (
     <div className="flex flex-col gap-5 w-full">
       <PageTitle title="Plans" />
