@@ -1,20 +1,14 @@
-// src/app/api/clerk-webhook/route.ts
+import { NextResponse } from "next/server";
+import { clerkClient } from "@clerk/nextjs/server";
 import { WebhookEvent } from "@clerk/nextjs/server";
 import { headers } from "next/headers";
-import { NextResponse } from "next/server";
 import { Webhook } from "svix";
+
 import { createUser } from "@/lib/userService";
-import { clerkClient } from '@clerk/nextjs/server';
 
 const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET;
 
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
-
-export async function POST(req: Request) {
+export const POST = async (req: Request) => {
   if (!WEBHOOK_SECRET) {
     throw new Error(
       "Please add WEBHOOK_SECRET from Clerk Dashboard to .env or .env.local"
@@ -83,7 +77,7 @@ export async function POST(req: Request) {
       }
 
       return NextResponse.json({ message: "New user created", user: newUser });
-    } catch (error:any) {
+    } catch (error: any) {
       return NextResponse.json(
         { error: `Error creating user: ${error.message}` },
         { status: 500 }
@@ -92,4 +86,7 @@ export async function POST(req: Request) {
   }
 
   return new Response("", { status: 200 });
-}
+};
+
+// Export the route segment config
+export const dynamic = "force-dynamic";
