@@ -3,7 +3,7 @@ interface cardProps {
   plan: string;
   pricing: number;
   features: string[];
-  link: string|null;
+  link: any;
 }
 const PlanCard: React.FC<cardProps> = ({ plan, pricing, features, link }) => (
   <div className="relative flex flex-col bg-clip-border rounded-xl bg-white text-gray-700 shadow-md lg:h-max lg:scale-105 z-10 translate-y-0">
