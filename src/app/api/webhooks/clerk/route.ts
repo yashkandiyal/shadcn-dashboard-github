@@ -87,4 +87,4 @@ export const POST = async (req: Request) => {
 
   return new Response("", { status: 200 });
 };
-
+export const dynamic = "auto";
