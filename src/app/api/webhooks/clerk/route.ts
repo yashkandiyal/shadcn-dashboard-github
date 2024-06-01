@@ -88,5 +88,3 @@ export const POST = async (req: Request) => {
   return new Response("", { status: 200 });
 };
 
-// Export the route segment config
-export const dynamic = "force-dynamic";
