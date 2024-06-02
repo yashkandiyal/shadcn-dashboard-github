@@ -52,7 +52,7 @@ export default function SideNavbar({}: Props) {
               onClick={toggleMobileSidebar}
               variant="secondary"
               className="rounded-full p-2 transition-colors duration-300 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300">
-              <X />
+              
             </Button>
           </div>
         )}
