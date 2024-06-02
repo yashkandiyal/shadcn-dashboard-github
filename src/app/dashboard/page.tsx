@@ -1,11 +1,14 @@
-"use client";
+"use client"
+import React, {useEffect, useState} from "react";
 import PageTitle from "@/components/PageTitle";
 import { DollarSign, Users, CreditCard, Activity } from "lucide-react";
 import Card, { CardContent, CardProps } from "@/components/Card";
 import BarChart from "@/components/BarChart";
 import SalesCard, { SalesProps } from "@/components/SalesCard";
-import { clerkClient } from "@clerk/nextjs/server";
-import { useEffect } from "react";
+import PieChartComponent from "@/components/PieChart";
+import LineBarGraph from "@/components/LineBarGraph";
+import StackedAreaChart from "@/components/StackedAreaChart";
+import LegendBarGraph from "@/components/LegendBarGraph"; // Import your PieChartComponent
 
 const cardData: CardProps[] = [
   {
@@ -65,10 +68,10 @@ const uesrSalesData: SalesProps[] = [
 export default function Home() {
 
   return (
-    <div className="flex flex-col gap-5  w-full">
+    <div className="flex flex-col gap-5 w-full">
       <PageTitle title="Dashboard" />
       <section className="grid w-full grid-cols-1 gap-4 gap-x-8 transition-all sm:grid-cols-2 xl:grid-cols-4">
-        {cardData.map((d, i) => (
+        {cardData.map((d:CardProps, i:number) => (
           <Card
             key={i}
             amount={d.amount}
@@ -78,8 +81,8 @@ export default function Home() {
           />
         ))}
       </section>
-      <section className="grid grid-cols-1  gap-4 transition-all lg:grid-cols-2">
-        <CardContent>
+      <section className="grid grid-cols-1 gap-4 transition-all lg:grid-cols-2">
+        <CardContent className="flex justify-center  items-center flex-col">
           <p className="p-4 font-semibold">Overview</p>
           <BarChart />
         </CardContent>
@@ -90,7 +93,7 @@ export default function Home() {
               You made 265 sales this month.
             </p>
           </section>
-          {uesrSalesData.map((d, i) => (
+          {uesrSalesData.map((d:SalesProps, i:number) => (
             <SalesCard
               key={i}
               email={d.email}
@@ -98,6 +101,23 @@ export default function Home() {
               saleAmount={d.saleAmount}
             />
           ))}
+        </CardContent>
+
+        <CardContent className="flex justify-center items-center flex-col mx-auto">
+          <p className="p-4 font-semibold">Pie Chart</p>
+          <PieChartComponent />
+        </CardContent>
+        <CardContent className="flex justify-center items-center flex-col">
+          <p className="p-4 font-semibold">Line Bar Graph</p>
+          <LineBarGraph />
+        </CardContent>
+        <CardContent className="flex justify-center items-center flex-col">
+          <p className="p-4 font-semibold">Stacked Area Chart</p>
+          <StackedAreaChart />
+        </CardContent>
+        <CardContent className="flex justify-center items-center flex-col">
+          <p className="p-4 font-semibold">Legend Bar Graph</p>
+          <LegendBarGraph />
         </CardContent>
       </section>
     </div>

@@ -22,8 +22,8 @@ const columns: ColumnDef<Payment>[] = [
       return (
         <div className="flex gap-2 items-center">
           <Image
-            width={20}
-            height={20}
+            width={40}
+            height={40}
             src={`https://api.dicebear.com/7.x/lorelei/svg?seed=${row.getValue(
               "name"
             )}`}
@@ -143,7 +143,7 @@ const data: Payment[] = [
 
 export default function UsersPage({}: Props) {
   return (
-    <div className="flex flex-col gap-5 w-full">
+    <div className="flex flex-col gap-5 w-full bg-white dark:bg-gray-900 dark:text-white">
       <PageTitle title="Users" />
       <DataTable columns={columns} data={data} />
     </div>

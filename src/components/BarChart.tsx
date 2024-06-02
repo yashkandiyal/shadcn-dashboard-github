@@ -1,86 +1,85 @@
-"use client";
+"use client"
 import React from "react";
 import {
-  BarChart as BarGraph,
-  ResponsiveContainer,
+  BarChart,
+  Bar,
   XAxis,
   YAxis,
-  Bar
+  CartesianGrid,
+  Tooltip,
+  Legend,
 } from "recharts";
-
-type Props = {};
+import { useWindowWidth } from "@react-hook/window-size";
 
 const data = [
   {
-    name: "Jan",
-    total: Math.floor(Math.random() * 5000) + 1000
+    name: "Page A",
+    uv: 4000,
+    pv: 2400,
+    amt: 2400,
   },
   {
-    name: "Feb",
-    total: Math.floor(Math.random() * 5000) + 1000
+    name: "Page B",
+    uv: 3000,
+    pv: 1398,
+    amt: 2210,
   },
   {
-    name: "Mar",
-    total: Math.floor(Math.random() * 5000) + 1000
+    name: "Page C",
+    uv: 2000,
+    pv: 9800,
+    amt: 2290,
   },
   {
-    name: "Apr",
-    total: Math.floor(Math.random() * 5000) + 1000
+    name: "Page D",
+    uv: 2780,
+    pv: 3908,
+    amt: 2000,
   },
   {
-    name: "May",
-    total: Math.floor(Math.random() * 5000) + 1000
+    name: "Page E",
+    uv: 1890,
+    pv: 4800,
+    amt: 2181,
   },
   {
-    name: "Jun",
-    total: Math.floor(Math.random() * 5000) + 1000
+    name: "Page F",
+    uv: 2390,
+    pv: 3800,
+    amt: 2500,
   },
   {
-    name: "Jul",
-    total: Math.floor(Math.random() * 5000) + 1000
+    name: "Page G",
+    uv: 3490,
+    pv: 4300,
+    amt: 2100,
   },
-  {
-    name: "Aug",
-    total: Math.floor(Math.random() * 5000) + 1000
-  },
-  {
-    name: "Sep",
-    total: Math.floor(Math.random() * 5000) + 1000
-  },
-  {
-    name: "Oct",
-    total: Math.floor(Math.random() * 5000) + 1000
-  },
-  {
-    name: "Nov",
-    total: Math.floor(Math.random() * 5000) + 1000
-  },
-  {
-    name: "Dec",
-    total: Math.floor(Math.random() * 5000) + 1000
-  }
 ];
 
-export default function BarChart({}: Props) {
+export default function MyBarChart() {
+  const windowWidth = useWindowWidth();
+
+  const chartWidth = windowWidth < 768 ? 350 : 700;
+
   return (
-    <ResponsiveContainer width={"100%"} height={350}>
-      <BarGraph data={data}>
-        <XAxis
-          dataKey={"name"}
-          tickLine={false}
-          axisLine={false}
-          stroke="#888888"
-          fontSize={12}
-        />
-        <YAxis
-          tickLine={false}
-          axisLine={false}
-          stroke="#888888"
-          fontSize={12}
-          tickFormatter={(value) => `$${value}`}
-        />
-        <Bar dataKey={"total"} radius={[4, 4, 0, 0]} />
-      </BarGraph>
-    </ResponsiveContainer>
+      <BarChart
+          width={chartWidth}
+          height={300}
+          data={data}
+          margin={{
+            top: 5,
+            right: 30,
+            left: 20,
+            bottom: 5,
+          }}
+      >
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="name" />
+        <YAxis />
+        <Tooltip shared={false} trigger="click" />
+        <Legend />
+        <Bar dataKey="pv" fill="#8884d8" />
+        <Bar dataKey="uv" fill="#82ca9d" />
+      </BarChart>
   );
 }

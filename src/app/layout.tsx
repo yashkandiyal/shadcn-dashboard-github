@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { cn } from "../lib/utils";
+import { cn } from "@/lib/utils";
 import { ClerkProvider } from "@clerk/nextjs";
+import { Providers } from "./provider";
+import React from "react";
+
 const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Next.js Dashboard",
@@ -16,12 +19,16 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider>
-      <html lang="en">
+
+      <html lang="en" suppressHydrationWarning>
         <body
           className={cn(
-            inter.className
+            inter.className,
+            "bg-white dark:bg-gray-900 dark:text-white"
           )}>
-          <div className="mx-2 ">{children}</div>
+          <div className="mx-2">
+            <Providers>{children}</Providers>
+          </div>
         </body>
       </html>
     </ClerkProvider>

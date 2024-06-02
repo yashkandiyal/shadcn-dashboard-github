@@ -35,12 +35,12 @@ export default async function SettingsPage() {
     <div className="flex flex-col gap-5 w-full">
       <PageTitle title="Plans" />
       <section className="p-4">
-        <div className="relative bg-clip-border text-gray-700 flex h-full min-h-[314px] w-full flex-col items-center justify-center rounded-xl !bg-gray-900 px-8">
+        <div className="relative bg-clip-border text-gray-700 flex h-full min-h-[314px] w-full flex-col items-center justify-center rounded-xl bg-gray-100 dark:bg-gray-900 px-8">
           <div className="container mx-auto text-center">
-            <h2 className="block antialiased tracking-normal font-sans text-4xl font-semibold leading-[1.3] text-white mb-4">
+            <h2 className="block antialiased tracking-normal font-sans text-4xl font-semibold leading-[1.3] text-gray-900 dark:text-white mb-4">
               Pricing
             </h2>
-            <p className="block antialiased font-sans text-xl font-normal leading-relaxed text-white mb-8 opacity-70">
+            <p className="block antialiased font-sans text-xl font-normal leading-relaxed text-gray-700 dark:text-white mb-8 opacity-70">
               Choose the perfect plan for a better dashboard experience
             </p>
           </div>

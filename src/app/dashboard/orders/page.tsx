@@ -6,7 +6,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import React from "react";
 import PageTitle from "@/components/PageTitle";
 import { cn } from "@/lib/utils";
-import { useStore } from "zustand";
+
 
 type Props = {};
 type Payment = {
@@ -145,7 +145,7 @@ export default function OrdersPage({ }: Props) {
 
   
   return (
-    <div className="flex flex-col gap-5 w-full">
+    <div className="flex flex-col gap-5 w-full bg-white text-black dark:bg-gray-900 dark:text-white">
       <PageTitle title="Orders" />
       <DataTable columns={columns} data={data} />
     </div>

@@ -1,77 +1,77 @@
+import type { NextApiRequest, NextApiResponse } from "next";
 import Stripe from "stripe";
-import { NextApiRequest, NextApiResponse } from "next";
-import { buffer } from "micro";
-import prisma from "@/lib/prisma"; // Ensure this path is correct
+import getRawBody from "raw-body";
+import prisma from "@/lib/prisma";
 
-// Initialize Stripe with your secret key
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
   apiVersion: "2024-04-10",
-  typescript: true,
 });
 
-// This is your Stripe CLI webhook secret for testing your endpoint locally.
-const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET!;
-export const dynamic = "auto";
+const endpointSecret = process.env.WEBHOOK_SECRET as string;
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
-  if (req.method !== "POST") {
-    res.setHeader("Allow", "POST");
-    res.status(405).end("Method Not Allowed");
-    return;
-  }
+// Make sure to add this, otherwise you will get a stream.not.readable error
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
 
-  const buf = await buffer(req);
-  const sig = req.headers["stripe-signature"];
-
-  let event: Stripe.Event;
-
+export default async function POST(req: NextApiRequest, res: NextApiResponse) {
   try {
-    event = stripe.webhooks.constructEvent(buf, sig!, endpointSecret);
-  } catch (err: any) {
-    res.status(400).send(`Webhook Error: ${err.message}`);
-    return;
-  }
+    console.log("req.headers", req.headers);
+    if (req.method !== "POST")
+      return res.status(405).send("Only POST requests allowed");
 
-  // Handle the event
-  switch (event.type) {
-    case "checkout.session.completed":
-      const session = event.data.object as Stripe.Checkout.Session;
-      const customerId = session.customer as string;
-      const plan = session.metadata?.plan;
+    const sig: any = req.headers["stripe-signature"];
+    const rawBody = await getRawBody(req);
 
-      if (customerId && plan) {
-        try {
-          await prisma.user.update({
-            where: { email: session.customer_email! },
-            data: { plan, stripeCustomerId: customerId },
-          });
-          console.log(
-            `User with customerId ${customerId} updated to plan ${plan}`
-          );
-        } catch (error: any) {
-          console.error(`Error updating user plan: ${error.message}`);
+    let event;
+
+    try {
+      event = stripe.webhooks.constructEvent(rawBody, sig, endpointSecret);
+    } catch (err: any) {
+      return res.status(400).send(`Webhook Error: ${err.message}`);
+    }
+
+    console.log("event.type", JSON.stringify(event.type));
+
+    if (event.type === "checkout.session.completed") {
+      const sessionWithLineItems = await stripe.checkout.sessions.retrieve(
+        (event.data.object as any).id,
+        {
+          expand: ["line_items", "customer"],
         }
+      );
+      const lineItems = sessionWithLineItems.line_items;
+      const customerEmail = (sessionWithLineItems.customer as any).email;
+      const customerId = (sessionWithLineItems.customer as any).id;
+
+      if (!lineItems || !customerEmail || !customerId) {
+        return res.status(500).send("Internal Server Error");
       }
-      res.status(200).json({ received: true });
-      break;
 
-    case "checkout.session.async_payment_failed":
-      console.error("Payment failed:", event.data.object);
-      res.status(200).json({ message: "Payment failed" });
-      break;
+      try {
+        // Assuming only one item is purchased at a time
+        const purchasedItem = lineItems.data[0];
+        const plan = purchasedItem.description
+        const stripeId = customerId;
 
-    case "checkout.session.async_payment_succeeded":
-      console.log("Payment succeeded:", event.data.object);
-      res.status(200).json({ message: "Payment succeeded" });
-      break;
+        // Store plan and stripeId in the database
+        const user = await prisma.user.update({
+          where: { email: customerEmail },
+          data: { plan, stripeCustomerId:stripeId },
+        });
 
-    // Handle other Stripe webhook events as needed
-    default:
-      console.log(`Unhandled event type ${event.type}`);
-      res.status(200).json({ received: true });
-      break;
+        console.log("User updated with plan and stripeId:", user);
+      } catch (error) {
+        console.log("Error updating user:", error);
+        return res.status(500).send("Internal Server Error");
+      }
+    }
+
+    res.status(200).end();
+  } catch (error) {
+    console.error(error);
+    res.status(500).json("Internal Server Error");
   }
 }

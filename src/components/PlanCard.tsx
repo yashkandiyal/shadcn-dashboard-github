@@ -17,11 +17,15 @@ const PlanCard: React.FC<cardProps> = ({ plan, pricing, features, link }) => (
           /per month
         </span>
       </h3>
-      <ul className="flex flex-col items-center justify-start gap-3 pt-6 mt-2 mb-5">
+      <div className="flex flex-col items-center justify-center">
+
+        <ul className="flex flex-col items-start justify-center gap-2 pt-3 mb-5 ">
+        {" "}
+        {/* Updated: Added text-center class */}
         {features.map((feature, index) => (
           <li
             key={index}
-            className="flex items-center gap-2 py-1 text-gray-700">
+            className="flex text-left items-center justify-start gap-2 py-1 text-gray-700">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -41,6 +45,8 @@ const PlanCard: React.FC<cardProps> = ({ plan, pricing, features, link }) => (
           </li>
         ))}
       </ul>
+      </div>
+      
       <a
         className="align-middle select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-lg bg-gray-900 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none w-full flex items-center justify-center gap-4"
         href={link!}
@@ -63,4 +69,5 @@ const PlanCard: React.FC<cardProps> = ({ plan, pricing, features, link }) => (
     </div>
   </div>
 );
+
 export default PlanCard;
