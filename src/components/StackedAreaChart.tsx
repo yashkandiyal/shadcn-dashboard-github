@@ -46,12 +46,12 @@ export default function StackedAreaChart() {
     );
 
     const windowWidth = useWindowWidth();
-    const chartWidth = windowWidth < 768 ? 350 : 700;
+    const chartWidth = windowWidth < 768 ? 340 : 700;
 
     return (
         <AreaChart
             width={chartWidth}
-            height={400}
+            height={300}
             data={data}
             margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
         >

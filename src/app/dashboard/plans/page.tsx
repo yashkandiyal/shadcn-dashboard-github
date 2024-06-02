@@ -1,7 +1,7 @@
 import React from "react";
 import PageTitle from "@/components/PageTitle";
 import PlanCard from "@/components/PlanCard";
-import Stripe from "stripe";
+
 const cardDetails = [
   {
     plan: "Basic Plan",

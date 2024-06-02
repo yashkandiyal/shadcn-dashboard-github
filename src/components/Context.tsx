@@ -3,6 +3,7 @@ import React, { createContext, useContext, useState } from "react";
 
 type SidebarContextType = {
   isMobileOpen: boolean;
+
   toggleMobileSidebar: () => void;
 };
 

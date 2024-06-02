@@ -61,11 +61,11 @@ const data = [
 export default function LineBarGraph() {
     const windowWidth = useWindowWidth();
 
-    const chartWidth = windowWidth < 768 ? 350 : 700;
+    const chartWidth = windowWidth < 768 ? 370 : 700;
     return (
         <ComposedChart
             width={chartWidth}
-            height={400}
+            height={300}
             data={data}
             margin={{
                 top: 20,

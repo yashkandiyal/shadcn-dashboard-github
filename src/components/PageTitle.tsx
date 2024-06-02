@@ -1,3 +1,4 @@
+"use client"
 import React from "react";
 import { Menu, X } from "lucide-react"; // Import both menu and cross icons
 import { useWindowWidth } from "@react-hook/window-size";
@@ -20,7 +21,7 @@ export default function PageTitle({ title, className }: Props) {
     <div className="flex items-center justify-between">
       {mobileWidth && ( // Check if mobile width
         <button onClick={toggleMobileSidebar}>
-          {isMobileOpen ? <X size={50} /> : <Menu />}{" "}
+          {isMobileOpen ? <X  /> : <Menu />}{" "}
           {/* Conditionally render the icon */}
         </button>
       )}
