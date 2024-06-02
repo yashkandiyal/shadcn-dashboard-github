@@ -12,7 +12,7 @@ const endpointSecret = process.env.WEBHOOK_SECRET as string;
 // Make sure to add this, otherwise you will get a stream.not.readable error
 export const dynamic = "auto";
 
-export default async function POST(req: NextApiRequest, res: NextApiResponse) {
+export const POST=async(req: NextApiRequest, res: NextApiResponse)=> {
   try {
     console.log("req.headers", req.headers);
     if (req.method !== "POST")
