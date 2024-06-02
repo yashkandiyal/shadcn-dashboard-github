@@ -1,6 +1,5 @@
-"use client"
 import React from "react";
-import { Menu } from "lucide-react";
+import { Menu, X } from "lucide-react"; // Import both menu and cross icons
 import { useWindowWidth } from "@react-hook/window-size";
 import { cn } from "@/lib/utils";
 import { UserButton } from "@clerk/nextjs";
@@ -15,13 +14,14 @@ type Props = {
 export default function PageTitle({ title, className }: Props) {
   const onlyWidth = useWindowWidth();
   const mobileWidth = onlyWidth < 768;
-  const { toggleMobileSidebar } = useSidebarContext(); // Use the context
+  const { isMobileOpen, toggleMobileSidebar } = useSidebarContext(); // Use the context
 
   return (
     <div className="flex items-center justify-between">
-      {mobileWidth && (
+      {mobileWidth && ( // Check if mobile width
         <button onClick={toggleMobileSidebar}>
-          <Menu />
+          {isMobileOpen ? <X size={50} /> : <Menu />}{" "}
+          {/* Conditionally render the icon */}
         </button>
       )}
       <h1

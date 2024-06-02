@@ -43,9 +43,7 @@ export default function SideNavbar({}: Props) {
         <Button
           onClick={toggleMobileSidebar}
           variant="secondary"
-          className="fixed top-4 left-4 z-50 p-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300">
-          <Menu />
-        </Button>
+          className="fixed top-4 left-4 z-50 p-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300"></Button>
       )}
       <div className={sidebarClasses}>
         {mobileWidth && (
@@ -63,9 +61,7 @@ export default function SideNavbar({}: Props) {
             <Button
               onClick={toggleSidebar}
               variant="secondary"
-              className="rounded-full p-2 transition-colors duration-300 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300">
-            
-            </Button>
+              className="rounded-full p-2 transition-colors duration-300 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300"></Button>
           </div>
         )}
         <Nav
