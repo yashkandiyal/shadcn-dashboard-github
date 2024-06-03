@@ -1,6 +1,8 @@
+
 import React from "react";
 import PageTitle from "@/components/PageTitle";
 import PlanCard from "@/components/PlanCard";
+import LoaderComponent from "@/components/Loader";
 
 const cardDetails = [
   {

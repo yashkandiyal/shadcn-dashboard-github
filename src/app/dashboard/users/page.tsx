@@ -2,9 +2,10 @@
 
 import { DataTable } from "@/components/DataTable";
 import { ColumnDef } from "@tanstack/react-table";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import PageTitle from "@/components/PageTitle";
 import Image from "next/image";
+import LoaderComponent from "@/components/Loader";
 
 type Props = {};
 type Payment = {
@@ -142,6 +143,15 @@ const data: Payment[] = [
 ];
 
 export default function UsersPage({}: Props) {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return <LoaderComponent />;
+  }
   return (
     <div className="flex flex-col gap-5 w-full bg-white dark:bg-gray-900 dark:text-white">
       <PageTitle title="Users" />

@@ -3,9 +3,10 @@
 
 import { DataTable } from "@/components/DataTable";
 import { ColumnDef } from "@tanstack/react-table";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import PageTitle from "@/components/PageTitle";
 import { cn } from "@/lib/utils";
+import LoaderComponent from "@/components/Loader";
 
 
 type Props = {};
@@ -142,7 +143,15 @@ const data: Payment[] = [
 ];
 
 export default function OrdersPage({ }: Props) {
+  const [isMounted, setIsMounted] = useState(false);
 
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return <LoaderComponent />;
+  }
   
   return (
     <div className="flex flex-col gap-5 w-full bg-white text-black dark:bg-gray-900 dark:text-white">

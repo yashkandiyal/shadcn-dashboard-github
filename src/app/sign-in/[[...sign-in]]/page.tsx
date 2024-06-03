@@ -1,18 +1,17 @@
 "use client";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { SignIn } from "@clerk/nextjs";
 
 import LoaderComponent from "@/components/Loader";
 
 export default function Page() {
-  const [mounted, setMounted] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
-    return () => setMounted(false); // Cleanup when component unmounts
+    setIsMounted(true);
   }, []);
 
-  if (!mounted) {
+  if (!isMounted) {
     return <LoaderComponent />;
   }
 
