@@ -1,7 +1,7 @@
+
 import React from "react";
 import PageTitle from "@/components/PageTitle";
 import PlanCard from "@/components/PlanCard";
-
 
 const cardDetails = [
   {
@@ -37,8 +37,7 @@ const cardDetails = [
 ];
 
 
-export default async function SettingsPage() {
-
+export default  function SettingsPage() {
 
   return (
     <div className="flex flex-col gap-5 w-full">

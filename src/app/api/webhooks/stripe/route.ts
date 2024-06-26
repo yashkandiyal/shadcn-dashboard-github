@@ -2,17 +2,21 @@ import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import { headers } from "next/headers";
 import prisma from "@/lib/prisma";
+import { currentUser } from "@clerk/nextjs/server";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: "2024-04-10",
 });
 
 export async function POST(request: Request) {
+  const currentUserDetails = await currentUser()
+  console.log(currentUserDetails);
+  
   const rawBody = await request.text();
   const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET as string;
   const sig = headers().get("Stripe-Signature") as string;
 
   let event: Stripe.Event;
-
+ 
   try {
     event = stripe.webhooks.constructEvent(rawBody, sig, endpointSecret);
     switch (event.type) {

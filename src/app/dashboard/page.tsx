@@ -1,5 +1,5 @@
 "use client"
-import React, {useEffect, useState} from "react";
+import React from "react";
 import PageTitle from "@/components/PageTitle";
 import { DollarSign, Users, CreditCard, Activity } from "lucide-react";
 import Card, { CardContent, CardProps } from "@/components/Card";
@@ -9,6 +9,7 @@ import PieChartComponent from "@/components/PieChart";
 import LineBarGraph from "@/components/LineBarGraph";
 import StackedAreaChart from "@/components/StackedAreaChart";
 import LegendBarGraph from "@/components/LegendBarGraph"; // Import your PieChartComponent
+
 
 const cardData: CardProps[] = [
   {
@@ -65,7 +66,7 @@ const uesrSalesData: SalesProps[] = [
   },
 ];
 
-export default function Home() {
+export default  function Home() {
 
   return (
     <div className="flex flex-col gap-5 w-full">
