@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import { headers } from "next/headers";
 import prisma from "@/lib/prisma";
-
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: "2024-04-10",
 });
@@ -24,8 +23,6 @@ export async function POST(request: Request) {
         // Fetch user based on customer ID
         console.log(event.data.object.metadata);
         
-     
-      
         const customer = checkoutSessionCompleted.customer_details;
         const totalAmount = checkoutSessionCompleted.amount_total;
         console.log("customer email address:", customer?.email);
