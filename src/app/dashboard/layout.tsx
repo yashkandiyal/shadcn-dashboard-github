@@ -27,7 +27,7 @@ export default function RootLayout({
       <SidebarProvider>
         <div
           className={cn(
-            "min-h-screen w-full md:ml-4 ml-0 bg-white text-black dark:bg-gray-900 dark:text-white flex",
+            "min-h-screen w-full bg-white text-black dark:bg-gray-900 dark:text-white flex",
             inter.className
           )}>
           <SideNavbar />

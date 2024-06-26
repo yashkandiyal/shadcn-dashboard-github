@@ -8,7 +8,7 @@ const cardDetails = [
     plan: "Basic Plan",
     pricing: 9.99,
     features: [
-      "Basic Analytics Dashboard",
+      "Basic Dashboard",
       "Standard User Management",
       "Email Support",
     ],
@@ -18,7 +18,7 @@ const cardDetails = [
     plan: "Premium Plan",
     pricing: 19.99,
     features: [
-      "Advanced Analytics Dashboard",
+      "Advanced Dashboard",
       "Enhanced User Management",
       "Priority Email & Chat Support",
     ],
@@ -28,7 +28,7 @@ const cardDetails = [
     plan: "Ultimate Plan",
     pricing: 29.99,
     features: [
-      "Customizable Analytics Dashboard",
+      "Customizable Dashboard",
       "Enterprise User Management",
       "Dedicated Account Manager",
     ],

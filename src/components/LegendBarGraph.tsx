@@ -80,7 +80,7 @@ export default function LegendBarGraph() {
     );
     const windowWidth = useWindowWidth();
 
-    const chartWidth = windowWidth < 768 ? 330 : 700;
+    const chartWidth = windowWidth < 768 ? 330 : 620;
     return (
         <div>
             <LineChart

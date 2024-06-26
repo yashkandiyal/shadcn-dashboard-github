@@ -24,7 +24,7 @@ export default function RootLayout({
           inter.className,
           "bg-white dark:bg-gray-900 dark:text-white"
         )}>
-        <div className="md:mx-5 mx-1">
+        <div className="md: mx-1">
           <Providers>
             <ClerkProvider>{children}</ClerkProvider>
           </Providers>

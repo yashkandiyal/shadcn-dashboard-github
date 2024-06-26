@@ -16,7 +16,7 @@ import { useSidebarContext } from "./Context"; // Import the context
 type Props = {};
 
 export default function SideNavbar({}: Props) {
-  const [isCollapsed, setIsCollapsed] = useState(true);
+  const [isCollapsed, setIsCollapsed] = useState(false);
   const onlyWidth = useWindowWidth();
   const mobileWidth = onlyWidth < 768;
   const { isMobileOpen, toggleMobileSidebar } = useSidebarContext(); // Use the context
@@ -25,19 +25,19 @@ export default function SideNavbar({}: Props) {
     setIsCollapsed(!isCollapsed);
   }
 
-  const sidebarClasses = `fixed inset-y-0 left-0 z-50 transition ease-in-out duration-100 ${
+  const sidebarClasses = `${
     mobileWidth
       ? isMobileOpen
-        ? "w-full"
+        ? "w-full fixed inset-y-0 left-0 z-50 transition ease-in-out duration-100 "
         : "w-0"
       : isCollapsed
       ? "w-[4rem]"
-      : "w-[16rem]"
+      : "w-[10rem]"
   } bg-white dark:bg-gray-900 overflow-hidden border-r border-gray-200 dark:border-gray-700 pt-4 pb-10`;
 
   return (
     <div className={sidebarClasses}>
-      <div className="flex items-center justify-between p-4">
+      <div className="flex items-center justify-between p-3">
         {isMobileOpen && (
           <X className="cursor-pointer" onClick={() => toggleMobileSidebar()} />
         )}

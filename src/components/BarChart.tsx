@@ -59,7 +59,7 @@ const data = [
 export default function MyBarChart() {
   const windowWidth = useWindowWidth();
 
-  const chartWidth = windowWidth < 768 ? 370 : 700;
+  const chartWidth = windowWidth < 768 ? 370 : 620;
 
   return (
       <BarChart
