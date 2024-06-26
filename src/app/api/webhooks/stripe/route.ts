@@ -22,7 +22,9 @@ export async function POST(request: Request) {
           .object as Stripe.Checkout.Session;
 
         // Fetch user based on customer ID
-      console.log(checkoutSessionCompleted);
+        console.log(event.data.object.metadata);
+        
+     
       
         const customer = checkoutSessionCompleted.customer_details;
         const totalAmount = checkoutSessionCompleted.amount_total;
