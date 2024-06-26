@@ -36,6 +36,7 @@ export default function PageTitle({ title, className }: Props) {
         <ThemeSwitch />
         <UserButton afterSignOutUrl="/" />
       </div>
+      
     </div>
   );
 }

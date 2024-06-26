@@ -155,6 +155,13 @@ export default function UsersPage({}: Props) {
   return (
     <div className="flex flex-col gap-5 w-full bg-white dark:bg-gray-900 dark:text-white">
       <PageTitle title="Users" />
+      <select
+          className="p-2 bg-gray-200 dark:bg-gray-700 rounded-lg"
+         >
+          <option value="">All</option>
+          <option value="recent">Recent Orders</option>
+          <option value="method">Stripe Payments</option>
+        </select>
       <DataTable columns={columns} data={data} />
     </div>
   );

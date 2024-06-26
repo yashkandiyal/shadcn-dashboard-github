@@ -22,7 +22,8 @@ export async function POST(request: Request) {
           .object as Stripe.Checkout.Session;
 
         // Fetch user based on customer ID
-
+      console.log(checkoutSessionCompleted);
+      
         const customer = checkoutSessionCompleted.customer_details;
         const totalAmount = checkoutSessionCompleted.amount_total;
         console.log("customer email address:", customer?.email);
