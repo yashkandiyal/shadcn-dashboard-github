@@ -18,19 +18,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ClerkProvider>
-
-      <html lang="en" suppressHydrationWarning>
-        <body
-          className={cn(
-            inter.className,
-            "bg-white dark:bg-gray-900 dark:text-white"
-          )}>
-          <div className="md:mx-5 mx-1">
-            <Providers>{children}</Providers>
-          </div>
-        </body>
-      </html>
-    </ClerkProvider>
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={cn(
+          inter.className,
+          "bg-white dark:bg-gray-900 dark:text-white"
+        )}>
+        <div className="md:mx-5 mx-1">
+          <Providers>
+            <ClerkProvider>{children}</ClerkProvider>
+          </Providers>
+        </div>
+      </body>
+    </html>
   );
 }

@@ -7,27 +7,35 @@ const cardDetails = [
   {
     plan: "Basic Plan",
     pricing: 9.99,
-    features: ["Online ordering", "Limited support"],
+    features: [
+      "Basic Analytics Dashboard",
+      "Standard User Management",
+      "Email Support",
+    ],
     link: process.env.BASIC_PLAN,
   },
   {
     plan: "Premium Plan",
     pricing: 19.99,
-    features: ["Online ordering", "24/7 support", "Special events access"],
+    features: [
+      "Advanced Analytics Dashboard",
+      "Enhanced User Management",
+      "Priority Email & Chat Support",
+    ],
     link: process.env.PREMIUM_PLAN,
   },
   {
     plan: "Ultimate Plan",
     pricing: 29.99,
     features: [
-      "Online ordering",
-      "24/7 support",
-      "Special events access",
-      "Personal chef consultation",
+      "Customizable Analytics Dashboard",
+      "Enterprise User Management",
+      "Dedicated Account Manager",
     ],
     link: process.env.ULTIMATE_PLAN,
   },
 ];
+
 
 export default async function SettingsPage() {
 

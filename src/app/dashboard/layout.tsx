@@ -31,7 +31,7 @@ export default function RootLayout({
             inter.className
           )}>
           <SideNavbar />
-          <main className="flex-1 md:p-8 p-4">{children}</main>
+          <main className="flex-1 md:p-[2.5rem] p-4">{children}</main>
         </div>
       </SidebarProvider>
     </>

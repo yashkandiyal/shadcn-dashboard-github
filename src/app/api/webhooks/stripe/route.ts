@@ -24,10 +24,26 @@ export async function POST(request: Request) {
         // Fetch user based on customer ID
 
         const customer = checkoutSessionCompleted.customer_details;
-        console.log("plan id:", checkoutSessionCompleted.id);
+        const totalAmount = checkoutSessionCompleted.amount_total;
         console.log("customer email address:", customer?.email);
-        console.log("amount:", checkoutSessionCompleted.amount_total);
-
+        console.log("amount:", totalAmount);
+        let updatedPlan;
+        //according to the amount_total i will check what is the plan the user has bought
+        if (totalAmount === 999) {
+          updatedPlan = "Basic";
+        } else if (totalAmount === 2999) {
+          updatedPlan = "Premium";
+        } else {
+          updatedPlan = "Ultimate";
+        }
+        await prisma.user.update({
+          where: {
+            email: customer?.email!,
+          },
+          data: {
+            plan: updatedPlan,
+          },
+        });
         break;
 
       default:
