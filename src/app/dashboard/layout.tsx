@@ -9,9 +9,21 @@ import { useAuth } from "@clerk/nextjs";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+type User = {
+  plan: string;
+  email: string;
+  id: string;
+  createdAt: string;
+  clerkId: string;
+};
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const [isMounted, setIsMounted] = useState(false);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<User | null>(null); // Define type for user state
   const { isSignedIn } = useAuth();
 
   useEffect(() => {
@@ -29,7 +41,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       }
     };
 
-    // Function to initialize user data when component mounts or when user signs in
     const initializeUser = async () => {
       if (isSignedIn) {
         await fetchUser();
@@ -40,11 +51,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       setIsMounted(true); // Set component as mounted
     };
 
-     initializeUser();
+    initializeUser();
 
-    // Clean-up effect for component unmount or re-initialization
     return () => {
-      setIsMounted(false); // Reset mounted state on unmount
+      setIsMounted(false); // Clean-up effect
     };
   }, [isSignedIn]);
 
@@ -62,18 +72,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   }
 
   return (
-      <>
-        <SidebarProvider>
-          <div
-              className={cn(
-                  "min-h-screen w-full bg-white text-black dark:bg-gray-900 dark:text-white flex",
-                  inter.className
-              )}
-          >
-            <SideNavbar />
-            <main className="flex-1 md:p-[2.5rem] p-4">{children}</main>
-          </div>
-        </SidebarProvider>
-      </>
+    <>
+      <SidebarProvider>
+        <div
+          className={cn(
+            "min-h-screen w-full bg-white text-black dark:bg-gray-900 dark:text-white flex",
+            inter.className
+          )}>
+          <SideNavbar />
+          <main className="flex-1 md:p-[2.5rem] p-4">{children}</main>
+        </div>
+      </SidebarProvider>
+    </>
   );
 }
