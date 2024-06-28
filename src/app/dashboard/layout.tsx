@@ -24,27 +24,27 @@ export default function RootLayout({
 }) {
   const [isMounted, setIsMounted] = useState(false);
   const [user, setUser] = useState<User | null>(null); // Define type for user state
-  const { isSignedIn,getToken  } = useAuth();
+  const { isSignedIn, getToken } = useAuth();
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await fetch(
-          "https://shadcn-dashboard-github.vercel.app/api/fetchuser",
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${getToken}`, // Example of using an access token for authentication
-            },
-            credentials: "include", // Ensure cookies are sent with the request
-          }
-        );
+        const token = await getToken();
+        if (!token) throw new Error("User not authenticated");
 
+        const response = await fetch("http://localhost:3000/api/fetchuser", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization: `Bearer ${token}`, 
+          },
+        });
+        
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
-
+        
         const userData = await response.json();
         setUser(userData);
         localStorage.setItem("userPlan", JSON.stringify(userData.plan)); // Store user's plan in localStorage
@@ -68,7 +68,7 @@ export default function RootLayout({
     return () => {
       setIsMounted(false); // Clean-up effect
     };
-  }, [isSignedIn]);
+  }, [isSignedIn, getToken]);
 
   useEffect(() => {
     // Update localStorage when user updates their plan
