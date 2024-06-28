@@ -1,15 +1,10 @@
 import { getAuth } from "@clerk/nextjs/server";
-import { NextResponse } from "next/server";
+import {  NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
-import NextCors from "nextjs-cors";
 
 export async function GET(req: Request) {
   // Apply CORS middleware
-  await NextCors(req, NextResponse, {
-    methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
-    origin: "*",
-    optionsSuccessStatus: 200,
-  });
+  
 
   // Get authentication details
   // @ts-ignore
