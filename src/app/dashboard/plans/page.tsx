@@ -69,10 +69,10 @@ const SettingsPage = () => {
                       pricing={card.pricing}
                       features={card.features}
                       link={
-                        isLoggedIn && userPlan === card.plan ? null : card.link
+                        userPlan === card.plan ? null : card.link
                       }
                       buttonText={
-                        isLoggedIn && userPlan === card.plan
+                        userPlan === card.plan
                             ? "Purchased"
                             : "Join"
                       }
