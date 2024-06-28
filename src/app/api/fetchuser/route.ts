@@ -1,8 +1,17 @@
 import { getAuth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
+import NextCors from "nextjs-cors";
 
 export async function GET(req: Request) {
+  // Apply CORS middleware
+  await NextCors(req, NextResponse, {
+    methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
+    origin: "*",
+    optionsSuccessStatus: 200,
+  });
+
+  // Get authentication details
   // @ts-ignore
   const { userId } = getAuth(req);
 
@@ -19,7 +28,7 @@ export async function GET(req: Request) {
       where: { clerkId: userId }, // assuming clerkId is stored in your User model
     });
     console.log("userInPrisma:", userInPrisma);
-    
+
     if (!userInPrisma) {
       return NextResponse.json({ message: "User not found" }, { status: 404 });
     }
