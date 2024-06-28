@@ -1,5 +1,5 @@
-
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import PageTitle from "@/components/PageTitle";
 import PlanCard from "@/components/PlanCard";
 
@@ -7,12 +7,8 @@ const cardDetails = [
   {
     plan: "Basic Plan",
     pricing: 9.99,
-    features: [
-      "Basic Dashboard",
-      "Standard User Management",
-      "Email Support",
-    ],
-    link: process.env.BASIC_PLAN,
+    features: ["Basic Dashboard", "Standard User Management", "Email Support"],
+    link: process.env.NEXT_PUBLIC_BASIC_PLAN!,
   },
   {
     plan: "Premium Plan",
@@ -22,7 +18,7 @@ const cardDetails = [
       "Enhanced User Management",
       "Priority Email & Chat Support",
     ],
-    link: process.env.PREMIUM_PLAN,
+    link: process.env.NEXT_PUBLIC_PREMIUM_PLAN!,
   },
   {
     plan: "Ultimate Plan",
@@ -32,35 +28,61 @@ const cardDetails = [
       "Enterprise User Management",
       "Dedicated Account Manager",
     ],
-    link: process.env.ULTIMATE_PLAN,
+    link: process.env.NEXT_PUBLIC_ULTIMATE_PLAN!,
   },
 ];
 
+const SettingsPage = () => {
+  const [userPlan, setUserPlan] = useState(null);
+  const isLoggedIn = localStorage.getItem("isLoggedIn");
 
-export default  function SettingsPage() {
+  useEffect(() => {
+    const storedUserPlan = localStorage.getItem("userPlan");
+    if (storedUserPlan) {
+      setUserPlan(JSON.parse(storedUserPlan)); // Parse JSON if needed
+    }
+  }, [userPlan,isLoggedIn]);
+
+  console.log("userPlan:", userPlan);
+  console.log("isLoggedIn:", isLoggedIn);
 
   return (
-    <div className="flex flex-col gap-5 w-full">
-      <PageTitle title="Plans" />
-      <section className="p-4">
-        <div className="relative bg-clip-border text-gray-700 flex h-full min-h-[314px] w-full flex-col items-center justify-center rounded-xl bg-gray-100 dark:bg-gray-900 px-8">
-          <div className="container mx-auto text-center">
-            <h2 className="block antialiased tracking-normal font-sans text-4xl font-semibold leading-[1.3] text-gray-900 dark:text-white mb-4">
-              Pricing
-            </h2>
-            <p className="block antialiased font-sans text-xl font-normal leading-relaxed text-gray-700 dark:text-white mb-8 opacity-70">
-              Choose the perfect plan for a better dashboard experience
-            </p>
+      <div className="flex flex-col gap-5 w-full">
+        <PageTitle title="Plans" />
+        <section className="p-4">
+          <div className="relative bg-clip-border text-gray-700 flex h-full min-h-[314px] w-full flex-col items-center justify-center rounded-xl bg-gray-100 dark:bg-gray-900 px-8">
+            <div className="container mx-auto text-center">
+              <h2 className="text-4xl font-semibold text-gray-900 dark:text-white mb-4">
+                Pricing
+              </h2>
+              <p className="text-xl text-gray-700 dark:text-white mb-8 opacity-70">
+                Choose the perfect plan for a better dashboard experience
+              </p>
+            </div>
           </div>
-        </div>
-        <div className="px-10 pt-8 pb-16 -mt-16 lg:px-30 xl:px-40">
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {cardDetails.map((card, index) => (
-              <PlanCard key={index} {...card} />
-            ))}
+          <div className="px-10 pt-8 pb-16 -mt-16 lg:px-30 xl:px-40">
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+              {cardDetails.map((card, index) => (
+                  <PlanCard
+                      key={index}
+                      plan={card.plan}
+                      pricing={card.pricing}
+                      features={card.features}
+                      link={
+                        isLoggedIn && userPlan === card.plan ? null : card.link
+                      }
+                      buttonText={
+                        isLoggedIn && userPlan === card.plan
+                            ? "Purchased"
+                            : "Join"
+                      }
+                  />
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
-    </div>
+        </section>
+      </div>
   );
-}
+};
+
+export default SettingsPage;
