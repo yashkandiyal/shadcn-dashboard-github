@@ -3,12 +3,11 @@ import {  NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 
 export async function GET(req: Request) {
-  // Apply CORS middleware
-  
 
-  // Get authentication details
   // @ts-ignore
-  const { userId } = getAuth(req);
+  const { userId } = getAuth(req, {
+    secretKey:process.env.CLERK_SECRET_KEY
+  });
 
   if (!userId) {
     return NextResponse.json(
