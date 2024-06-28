@@ -23,7 +23,7 @@ const nextConfig = {
           {
             key: "Access-Control-Allow-Origin",
             value:
-              "https://shadcn-dashboard-github-cs0ii1jd5-yashkandiyals-projects.vercel.app",
+              "*",
           },
           {
             key: "Access-Control-Allow-Methods",
