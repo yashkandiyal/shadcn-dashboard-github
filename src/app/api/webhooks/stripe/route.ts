@@ -9,21 +9,19 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 
 
 
-export async function POST(request: NextRequest) {
-  console.log("incoming request:",request);
-  
+export async function POST(req: Request) {
+  console.log("incoming request:", req);
+
   const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET as string;
   const sig = headers().get("Stripe-Signature") as string;
- // Read the request body as text
-    const reqText = await request.text();
-    // Convert the text to a buffer
-    const reqBuffer = Buffer.from(reqText);
+  // Read the request body as text
+  const reqText = await req.text();
+  // Convert the text to a buffer
+  const reqBuffer = Buffer.from(reqText);
   let event: Stripe.Event;
   let currentUpdatedPlan;
 
   try {
-   
-
     // Log raw body string for debugging
     console.log("rawBodyString:", reqBuffer);
 
