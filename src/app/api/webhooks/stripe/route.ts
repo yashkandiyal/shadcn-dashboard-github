@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import Stripe from "stripe";
 import prisma from "@/lib/prisma";
+import { headers } from "next/headers";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: "2024-04-10",
@@ -9,7 +10,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 export async function POST(request: Request) {
   const rawBody = await request.text();
   const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET as string;
-  const sig = request.headers.get("Stripe-Signature") as string;
+  const sig = headers().get("Stripe-Signature") as string;
 
   let event: Stripe.Event;
   let currentUpdatedPlan;
@@ -19,7 +20,8 @@ export async function POST(request: Request) {
 
     switch (event.type) {
       case "checkout.session.completed":
-        const checkoutSessionCompleted = event.data.object as Stripe.Checkout.Session;
+        const checkoutSessionCompleted = event.data
+          .object as Stripe.Checkout.Session;
         console.log("current product details:", checkoutSessionCompleted);
 
         // Fetch user based on customer ID
@@ -39,7 +41,10 @@ export async function POST(request: Request) {
           updatedPlan = "Ultimate Plan";
         } else {
           console.error("Unknown product_id:", productId);
-          return NextResponse.json({ error: "Unknown product_id" }, { status: 400 });
+          return NextResponse.json(
+            { error: "Unknown product_id" },
+            { status: 400 }
+          );
         }
 
         // Update the user's plan in the database using the email
