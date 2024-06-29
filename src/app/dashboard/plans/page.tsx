@@ -34,17 +34,17 @@ const cardDetails = [
 
 const SettingsPage = () => {
   const [userPlan, setUserPlan] = useState(null);
-  const isLoggedIn = localStorage.getItem("isLoggedIn");
+ 
 
   useEffect(() => {
     const storedUserPlan = localStorage.getItem("userPlan");
     if (storedUserPlan) {
       setUserPlan(JSON.parse(storedUserPlan)); // Parse JSON if needed
     }
-  }, [userPlan,isLoggedIn]);
+  }, [userPlan]);
 
   console.log("userPlan:", userPlan);
-  console.log("isLoggedIn:", isLoggedIn);
+
 
   return (
       <div className="flex flex-col gap-5 w-full">

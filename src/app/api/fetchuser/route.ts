@@ -17,7 +17,7 @@ export async function GET(req: Request) {
   try {
     // Fetch user from database based on userId
     const userInPrisma = await prisma.user.findUnique({
-      where: { clerkId: userId }, // assuming clerkId is stored in your User model
+      where: { clerkId: userId }, 
     });
     console.log("userInPrisma:", userInPrisma);
 

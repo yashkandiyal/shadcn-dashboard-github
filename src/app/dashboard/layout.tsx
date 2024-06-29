@@ -30,7 +30,7 @@ export default function RootLayout({
     const fetchUser = async () => {
       try {
         const response = await fetch(
-          "http://localhost:3000/api/fetchuser"
+          "https://shadcn-dashboard-github.vercel.app/api/fetchuser"
         );
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
