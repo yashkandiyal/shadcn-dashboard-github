@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 import prisma from "@/lib/prisma";
 import { headers } from "next/headers";
@@ -7,29 +7,40 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: "2024-04-10",
 });
 
-export async function POST(request: Request) {
-  const rawBody = await request.text();
+export const config = {
+  api: {
+    bodyParser: false, // Disable body parsing
+  },
+};
+
+export async function POST(request: NextRequest) {
+  console.log("incoming request:",request);
+  
   const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET as string;
   const sig = headers().get("Stripe-Signature") as string;
-
+ // Read the request body as text
+    const reqText = await request.text();
+    // Convert the text to a buffer
+    const reqBuffer = Buffer.from(reqText);
   let event: Stripe.Event;
   let currentUpdatedPlan;
 
   try {
-    event = stripe.webhooks.constructEvent(rawBody, sig, endpointSecret);
+   
+
+    // Log raw body string for debugging
+    console.log("rawBodyString:", reqBuffer);
+
+    event = stripe.webhooks.constructEvent(reqBuffer, sig, endpointSecret);
 
     switch (event.type) {
       case "checkout.session.completed":
         const checkoutSessionCompleted = event.data
           .object as Stripe.Checkout.Session;
-        console.log("current product details:", checkoutSessionCompleted);
 
         // Fetch user based on customer ID
         const customer = checkoutSessionCompleted.customer_details;
         const productId = checkoutSessionCompleted.metadata?.product_id;
-
-        console.log("customer email address:", customer?.email);
-        console.log("product_id:", productId);
 
         // Determine the purchased plan based on product_id
         let updatedPlan;
