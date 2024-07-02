@@ -19,7 +19,7 @@ export async function GET(req: Request) {
     const userInPrisma = await prisma.user.findUnique({
       where: { clerkId: userId }, 
     });
-    console.log("userInPrisma:", userInPrisma);
+    
 
     if (!userInPrisma) {
       return NextResponse.json({ message: "User not found" }, { status: 404 });

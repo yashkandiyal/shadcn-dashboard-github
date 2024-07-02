@@ -64,7 +64,7 @@ export const POST = async (req: Request) => {
       plan: "Free",
     };
 
-    console.log(user);
+    
 
     try {
       const newUser = await createUser(user);
