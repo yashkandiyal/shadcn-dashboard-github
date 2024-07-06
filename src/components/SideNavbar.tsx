@@ -32,8 +32,8 @@ export default function SideNavbar({}: Props) {
         : "w-0"
       : isCollapsed
       ? "w-[4rem]"
-      : "w-[10rem]"
-  } bg-white dark:bg-gray-900 overflow-hidden border-r border-gray-200 dark:border-gray-700 pt-4 pb-10`;
+      : "w-[11rem]"
+  } bg-white dark:bg-gray-900 overflow-hidden border-r border-gray-200 dark:border-gray-700 pt-6`;
 
   return (
     <div className={sidebarClasses}>

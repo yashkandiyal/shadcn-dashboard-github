@@ -1,52 +1,60 @@
-"use client"
-import React from "react";
-import { PieChart, Pie } from "recharts";
+"use client";
+import React, { useEffect, useState } from "react";
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
 
+// Define the data type
+type Payment = {
+  name: string;
+  email: string;
+  lastOrder: string;
+  method: string;
+};
 
-const data01 = [
-  { name: "Group A", value: 400 },
-  { name: "Group B", value: 300 },
-  { name: "Group C", value: 300 },
-  { name: "Group D", value: 200 }
-];
-const data02 = [
-  { name: "A1", value: 100 },
-  { name: "A2", value: 300 },
-  { name: "B1", value: 100 },
-  { name: "B2", value: 80 },
-  { name: "B3", value: 40 },
-  { name: "B4", value: 30 },
-  { name: "B5", value: 50 },
-  { name: "C1", value: 100 },
-  { name: "C2", value: 200 },
-  { name: "D1", value: 150 },
-  { name: "D2", value: 50 }
-];
+const COLORS: { [key: string]: string } = {
+  Stripe: "#8884d8",
+  "Google Pay": "#82ca9d",
+  "Apple Pay": "#ffc658",
+}; // Colors for each payment method
 
 export default function PieChartComponent() {
+  const [data, setData] = useState<Payment[]>([]);
 
+  useEffect(() => {
+    fetch("/api/piechartdata")
+        .then((response) => response.json())
+        .then((data) => setData(data))
+        .catch((error) => console.error("Error fetching data:", error));
+  }, []);
 
+  // Process the data for the PieChart
+  const methodCounts = data.reduce((acc: Record<string, number>, payment) => {
+    acc[payment.method] = (acc[payment.method] || 0) + 1;
+    return acc;
+  }, {});
+
+  const chartData = Object.keys(methodCounts).map((key) => ({
+    name: key,
+    value: methodCounts[key],
+  }));
 
   return (
-      <PieChart width={400} height={400}>
-        <Pie
-            data={data01}
-            dataKey="value"
-            cx={200}
-            cy={200}
-            outerRadius={60}
-            fill="#8884d8"
-        />
-        <Pie
-            data={data02}
-            dataKey="value"
-            cx={200}
-            cy={200}
-            innerRadius={70}
-            outerRadius={90}
-            fill="#82ca9d"
-            label
-        />
-      </PieChart>
+      <ResponsiveContainer width="100%" height={300}>
+        <PieChart>
+          <Pie
+              data={chartData}
+              dataKey="value"
+              cx="50%"
+              cy="50%"
+              outerRadius={120}
+              label={({ name, value }) => `${name}: ${value}`} // Display labels with name and value
+              labelLine={false} // Hide label line for cleaner look
+          >
+            {chartData.map((entry, index) => (
+                <Cell key={`cell-${index}`} fill={COLORS[entry.name]} />
+            ))}
+          </Pie>
+          <Tooltip />
+        </PieChart>
+      </ResponsiveContainer>
   );
 }

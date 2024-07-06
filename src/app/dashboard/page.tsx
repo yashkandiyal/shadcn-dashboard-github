@@ -1,6 +1,5 @@
-// pages/index.js or Home.js
 "use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import PageTitle from "@/components/PageTitle";
 import { DollarSign, Users, CreditCard, Activity } from "lucide-react";
 import Card, { CardContent, CardProps } from "@/components/Card";
@@ -10,7 +9,6 @@ import PieChartComponent from "@/components/PieChart";
 import LineBarGraph from "@/components/LineBarGraph";
 import StackedAreaChart from "@/components/StackedAreaChart";
 import LegendBarGraph from "@/components/LegendBarGraph";
-
 
 const cardData: CardProps[] = [
   {
@@ -47,7 +45,7 @@ const userSalesData: SalesProps[] = [
   },
   {
     name: "Jackson Lee",
-    email: "isabella.nguyen@email.com",
+    email: "jackson.lee@email.com",
     saleAmount: "+$1,999.00",
   },
   {
@@ -68,12 +66,10 @@ const userSalesData: SalesProps[] = [
 ];
 
 const Home = () => {
-
-
   return (
-      <div className="flex flex-col gap-5 w-full">
+      <div className="flex flex-col gap-5 w-full p-2 md:p-0">
         <PageTitle title="Dashboard" />
-        <section className="grid w-full grid-cols-1 gap-4 gap-x-8 transition-all sm:grid-cols-2 xl:grid-cols-4">
+        <section className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
           {cardData.map((d, i) => (
               <Card
                   key={i}
@@ -84,41 +80,43 @@ const Home = () => {
               />
           ))}
         </section>
-        <section className="grid grid-cols-1 gap-4 transition-all lg:grid-cols-2">
-          <CardContent className="flex justify-center items-center flex-col">
+        <section className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+          <CardContent className="flex justify-center items-center flex-col w-full">
             <p className="p-4 font-semibold">Overview</p>
             <BarChart />
           </CardContent>
-          <CardContent className="flex justify-between gap-4">
+          <CardContent className="flex flex-col justify-between gap-4 w-full">
             <section>
-              <p>Recent Sales</p>
+              <p className="font-semibold">Recent Sales</p>
               <p className="text-sm text-gray-400">
                 You made 265 sales this month.
               </p>
             </section>
-            {userSalesData.map((d, i) => (
-                <SalesCard
-                    key={i}
-                    email={d.email}
-                    name={d.name}
-                    saleAmount={d.saleAmount}
-                />
-            ))}
+            <div className="flex flex-col gap-4 w-full">
+              {userSalesData.map((d, i) => (
+                  <SalesCard
+                      key={i}
+                      email={d.email}
+                      name={d.name}
+                      saleAmount={d.saleAmount}
+                  />
+              ))}
+            </div>
           </CardContent>
 
-          <CardContent className="flex justify-center items-center flex-col mx-auto">
+          <CardContent className="flex justify-center items-center flex-col w-full">
             <p className="p-4 font-semibold">Pie Chart</p>
             <PieChartComponent />
           </CardContent>
-          <CardContent className="flex justify-center items-center flex-col">
+          <CardContent className="flex justify-center items-center flex-col w-full">
             <p className="p-4 font-semibold">Line Bar Graph</p>
             <LineBarGraph />
           </CardContent>
-          <CardContent className="flex justify-center items-center flex-col">
+          <CardContent className="flex justify-center items-center flex-col w-full">
             <p className="p-4 font-semibold">Stacked Area Chart</p>
             <StackedAreaChart />
           </CardContent>
-          <CardContent className="flex justify-center items-center flex-col">
+          <CardContent className="flex justify-center items-center flex-col w-full">
             <p className="p-4 font-semibold">Legend Bar Graph</p>
             <LegendBarGraph />
           </CardContent>
