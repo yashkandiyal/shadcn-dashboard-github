@@ -8,7 +8,7 @@ const isPublicRoute = createRouteMatcher([
   "/sign-in(.*)",
 ]);
 
-const allowedOrigin = "https://shadcn-dashboard-github.vercel.app/";
+const allowedOrigin = "https://shadcn-dashboard-github.vercel.app";
 
  export default clerkMiddleware((auth, req) => {
   console.log("Middleware reached. Path:", req.nextUrl.pathname);
