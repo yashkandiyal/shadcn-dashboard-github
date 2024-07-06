@@ -10,11 +10,11 @@ const isPublicRoute = createRouteMatcher([
 
 const allowedOrigin = "https://shadcn-dashboard-github.vercel.app/";
 
-export default clerkMiddleware((auth, req) => {
+ export default clerkMiddleware((auth, req) => {
   console.log("Middleware reached. Path:", req.nextUrl.pathname);
 
   const origin = req.nextUrl.origin;
-  console.log("origin:",origin)
+  console.log("origin:", origin);
   if (origin !== allowedOrigin) {
     console.log(`Unauthorized origin: ${origin}`);
     return new NextResponse("Unauthorized", { status: 401 });
