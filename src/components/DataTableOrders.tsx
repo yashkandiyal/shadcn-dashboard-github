@@ -27,7 +27,7 @@ interface DataTableProps<TData, TValue> {
   onPageChange: (page: number) => void; // Function to handle page change
 }
 
-export function DataTable<TData, TValue>({
+export function DataTableOrders<TData, TValue>({
   columns,
   data,
   totalItems,
@@ -51,7 +51,7 @@ export function DataTable<TData, TValue>({
     if (currentPage > 1) {
       const newPage = currentPage - 1;
       onPageChange(newPage);
-      router.push(`/dashboard/users?page=${newPage}`);
+      router.push(`/dashboard/orders?page=${newPage}`);
     }
   };
 
@@ -59,7 +59,7 @@ export function DataTable<TData, TValue>({
     if (currentPage < totalPages) {
       const newPage = currentPage + 1;
       onPageChange(newPage);
-      router.push(`/dashboard/users?page=${newPage}`);
+      router.push(`/dashboard/orders?page=${newPage}`);
     }
   };
 
