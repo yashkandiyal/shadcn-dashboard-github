@@ -1,8 +1,7 @@
-// app/api/payments/route.js
 
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(request: NextResponse) {
+export async function GET(request: NextRequest) {
   const data = [
     {
       name: "John Doe",
@@ -97,7 +96,6 @@ export async function GET(request: NextResponse) {
   ];
 
   // Filter data to include only Stripe, Google Pay, and Apple Pay methods
-
 
   return new Response(JSON.stringify(data), {
     status: 200,

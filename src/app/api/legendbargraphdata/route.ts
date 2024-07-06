@@ -1,6 +1,6 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(request: NextResponse) {
+export async function GET(request: NextRequest) {
   const data = [
     { month: "January", newUsers: 4000, sales: 2400, revenue: 2400 },
     { month: "February", newUsers: 3000, sales: 1398, revenue: 2210 },
